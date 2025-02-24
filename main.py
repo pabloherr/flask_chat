@@ -5,7 +5,12 @@ from string import ascii_uppercase
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "dev"
-SocketIO = SocketIO(app)
+socketio = SocketIO(app)
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    return render_template("home.html")
+
 
 if __name__ == "__main__":
-    SocketIO.run(app, debug=True)
+    socketio.run(app, debug=True)
