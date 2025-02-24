@@ -17,8 +17,31 @@
 <script type="text/javascript">
   var secketio = io();
 
-  const sendMenssage = () => {
-    console.log("send message");
-  };
+  const messages = document.getElementById("messages");
+
+  const createMessage = (message) = (name, msg) => {
+    const content = `
+    <div>
+        <span>
+            <strong>${name}</strong>: ${msg}
+        </span>
+        <span class="muted">
+            ${new Date().toLocaleTimeString()}
+        </span>
+    <div>
+        <span>
+            <strong>${name}</strong>: ${msg}
+        </span>
+        <span class="muted">
+            ${new Date().toLocaleTimeString()}
+        </span>
+    </div>
+    `
+    messages.innerHTML += content;
+    };
+    socketio.on("message", (data) => {
+        createMessage(data.name, data.message);
+    });
+    
 </script>
 {% endblock %}
